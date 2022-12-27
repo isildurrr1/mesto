@@ -1,9 +1,22 @@
 .profile__add {
-  aspect-ratio: 3 / 1;
+  width: 150px;
   height: 50px;
   box-sizing: border-box;
   border: 2px solid #FFFFFF;
   border-radius: 2px;
   background: url(../../../images/add_icon.svg) center / 22px no-repeat black;
   margin: auto 0 auto auto;
+}
+
+@media screen and (max-width: 776px) {
+  .profile__add {
+    width: 100%;
+    margin: 36px 0 0 0;
+  }
+}
+
+@media screen and (max-width: 503px) {
+  .profile__add {
+    background-size: 16px;
+  }
 }
