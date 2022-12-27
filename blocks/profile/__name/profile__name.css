@@ -1,11 +1,14 @@
 .profile__name {
   max-width: 450px;
   max-height: 50px;
-  overflow: hidden;
+  /* overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
   -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
+  -webkit-box-orient: vertical; */
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
   margin: 0;
   font-style: normal;
   font-weight: 500;

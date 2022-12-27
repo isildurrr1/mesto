@@ -6,6 +6,11 @@
   border-radius: 2px;
   background: url(../../../images/add_icon.svg) center / 22px no-repeat black;
   margin: auto 0 auto auto;
+  cursor: pointer;
+}
+
+.profile__add:hover {
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 776px) {
