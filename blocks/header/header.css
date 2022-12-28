@@ -17,5 +17,6 @@
   .header {
     margin: 0;
     height: 56px;
+    padding-top: 28px;
   }
 }
