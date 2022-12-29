@@ -2,14 +2,14 @@
   width: 358px;
   margin: auto;
   display: grid;
-  gap: 29px;
+  gap: 21px;
   padding-left: 1px;
 }
 
 @media screen and (max-width: 600px) {
   .popup__form {
     width: 238px;
-    gap: 30px;
+    gap: 21px;
     padding: 0;
   }
 }
