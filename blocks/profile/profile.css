@@ -1,14 +1,7 @@
 .profile {
   max-width: 880px;
-  min-height: 120px;
   margin: auto;
   display: flex;
   flex-wrap: wrap;
 }
-
-/* @media screen and (max-width: 1024px) {
-  .profile {
-    height: 100px;
-  }
-} */
 

@@ -3,8 +3,8 @@
   width: 100%;
   border: 1px solid white;
   box-sizing: border-box;
-  background: url(../../../images/edit_icon.svg) center / 10px no-repeat black;
-  align-self: center;
+  background: url(../../../images/edit_icon.svg) center / 10px no-repeat;
+  margin-top: 16px;
   cursor: pointer;
 }
 
@@ -15,6 +15,7 @@
 
 @media screen and (max-width: 503px) {
   .profile__edit {
-    background-size: 5px;
+    background-size: 8px;
+    margin-top: 8px;
   }
 }

@@ -4,7 +4,7 @@
   box-sizing: border-box;
   border: 2px solid #FFFFFF;
   border-radius: 2px;
-  background: url(../../../images/add_icon.svg) center / 22px no-repeat black;
+  background: url(../../../images/add_icon.svg) center / 22px no-repeat;
   margin: auto 0 auto auto;
   cursor: pointer;
 }
@@ -23,5 +23,6 @@
 @media screen and (max-width: 503px) {
   .profile__add {
     background-size: 16px;
+    margin: 33px 0 0 0;
   }
 }
