@@ -7,6 +7,7 @@
   background: url(../../../images/add_icon.svg) center / 22px no-repeat;
   margin: auto 0 auto auto;
   cursor: pointer;
+  transition: opacity .3s;
 }
 
 .profile__add:hover {

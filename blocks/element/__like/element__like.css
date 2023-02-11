@@ -8,10 +8,11 @@
   box-sizing: border-box;
   border: 0;
   cursor: pointer;
+  transition: opacity .6s;
 }
 
 .element__like:hover {
-  background: url(../../../images/like_hover.svg) center no-repeat;
+  opacity: 50%;
 }
 
 .element__like:active {

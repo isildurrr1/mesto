@@ -6,6 +6,7 @@
   background: url(../../../images/edit_icon.svg) center / 10px no-repeat;
   margin-top: 16px;
   cursor: pointer;
+  transition: opacity .3s;
 }
 
 .profile__edit:hover {
