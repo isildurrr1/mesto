@@ -19,7 +19,6 @@ let openPopup = () => {
   jobInput.value = job.textContent;
 }
 
-
 let closePopup = () => {
   popup.classList.remove('popup_opened');
 }
@@ -69,6 +68,7 @@ const card = document.querySelector('#card').content;
 const cards = document.querySelector('.elements');
 const element = card.querySelector('.element').cloneNode(true);
 
+
 // функция добавления карточек
 const initCard = (cardElement, element, title) => {
   // копируем данные в промежуточный элемент для чтения и изменения данных
@@ -81,6 +81,9 @@ const initCard = (cardElement, element, title) => {
   });
   element.querySelector('.element__trash').addEventListener('click', function (evt) {
     evt.target.parentElement.remove();
+  })
+  element.querySelector('.element__image').addEventListener('click', function (evt) {
+    openImagePopup(evt.target.src, evt.target.parentElement.querySelector('.element__name').textContent);
   })
   cardElement.prepend(element);
 }
@@ -127,4 +130,23 @@ const addNewCard = (evt) => {
 btnAdd.addEventListener('click', openAddPopup);
 btnCloseAdd.addEventListener('click', closeAddPopup);
 btnAddSubmit.addEventListener('click', addNewCard);
+
+
+const imageTemplatePopup = document.querySelector('#image').content;
+const imageEllement = imageTemplatePopup.querySelector('.image').cloneNode(true);
+addPopup.append(imageEllement)
+const openImagePopup = (source, name) => {
+  imageEllement.querySelector('.image__photo').src = source;
+  imageEllement.querySelector('.image__text').textContent = name;
+  imageEllement.classList.add('image_opened')
+
+}
+
+const closeImagePopup = () => {
+  imageEllement.classList.remove('image_opened')
+}
+
+const btnImageClose = imageEllement.querySelector('.popup__close')
+btnImageClose.addEventListener('click', closeImagePopup)
+
 
