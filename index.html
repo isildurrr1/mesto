@@ -45,14 +45,10 @@
       <div class="popup__container">
         <h3 class="popup__title">Новое место</h3>
         <form action="#" class="popup__form" name="data_change">
-          <div class="popup_input-with-error">
-            <input type="text" class="popup__input popup__input_form_place" id="place-input" name="place" placeholder="Название" minlength="2" maxlength="30" required>
-            <span class='popup__error place-input-error'></span>
-          </div>
-          <div class="popup_input-with-error">
-            <input type="url" class="popup__input popup__input_form_src" id="src-input" name="src" placeholder="Ссылка на картинку" required>
-            <span class='popup__error src-input-error'></span>
-          </div>
+          <input type="text" class="popup__input popup__input_form_place" id="place-input" name="place" placeholder="Название" minlength="2" maxlength="30" required>
+          <span class='popup__error place-input-error'></span>
+          <input type="url" class="popup__input popup__input_form_src" id="src-input" name="src" placeholder="Ссылка на картинку" required>
+          <span class='popup__error src-input-error'></span>
           <button class="popup__button" type="submit">Сохранить</button>
         </form>
         <button class="popup__close" type="button"></button>
