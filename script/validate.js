@@ -1,4 +1,4 @@
-settings = {
+const settings = {
   formSelector: '.popup__form',
   inputSelector: '.popup__input',
   submitButtonSelector: '.popup__button',
@@ -38,8 +38,10 @@ const hasInvalidInput = (inputList) => {
 const toggleButtonState = (obj, inputList, buttonElement) => {
   if (hasInvalidInput(inputList)) {
     buttonElement.classList.add(obj.inactiveButtonClass);
+    buttonElement.setAttribute('disabled', true);
   } else {
     buttonElement.classList.remove(obj.inactiveButtonClass);
+    buttonElement.removeAttribute("disabled");
   }
 }
 
@@ -49,6 +51,7 @@ const setEventListeners = (obj, formElement) => {
   toggleButtonState(obj, inputList, buttonElement);
   inputList.forEach((inputElement) => {
     inputElement.addEventListener('input', function () {
+      formElement.setAttribute('required', true)
       checkInputValidity(obj, formElement, inputElement);
       toggleButtonState(obj, inputList, buttonElement);
     });
@@ -58,9 +61,9 @@ const setEventListeners = (obj, formElement) => {
 const enableValidation = (obj) => {
   let formList = Array.from(document.querySelectorAll(obj.formSelector));
   formList.forEach((formElement) => {
-    formElement.addEventListener('submit', (evt) => {
-      evt.preventDefault();
-    });
+    // formElement.addEventListener('submit', (evt) => {
+    //   evt.preventDefault();
+    // });
     setEventListeners(obj, formElement);
   });
 }
