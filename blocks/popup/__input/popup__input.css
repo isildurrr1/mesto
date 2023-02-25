@@ -11,5 +11,5 @@
 }
 
 .popup__input:invalid {
-  border-bottom: 1px solid #FF0000;
+  border-bottom: 1px solid red;
 }
