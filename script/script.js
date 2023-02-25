@@ -14,7 +14,7 @@ const cards = document.querySelector('.elements');
 const placeInput = popupAddCard.querySelector('.popup__input_form_place');
 const srcInput = popupAddCard.querySelector('.popup__input_form_src');
 const addNewCardForm = popupAddCard.querySelector('.popup__form');
-const btnCardAddSubmit = popupAddCard.querySelector('.popup__submit');
+const btnCardAddSubmit = popupAddCard.querySelector('.popup__button');
 const btnCardAddClose = popupAddCard.querySelector('.popup__close');
 const popupImage = document.querySelector('.popup_image');
 const popupImageSrc = popupImage.querySelector('.popup__photo');
@@ -32,7 +32,7 @@ const closePopup = (popupName) => {
 
 const submitEditProfileForm = (evt) => {
   evt.preventDefault();
-  if (!evt.target.querySelector('.popup__submit').classList.contains('popup__submit_not-active')) {
+  if (!evt.target.querySelector('.popup__button').classList.contains('popup__button_disabled')) {
     name.textContent = nameInput.value;
     job.textContent = jobInput.value;
     closePopup(popupEditProfile);
@@ -41,7 +41,8 @@ const submitEditProfileForm = (evt) => {
 
 const submitAddForm = (evt) => {
   evt.preventDefault();
-  if (!evt.target.classList.contains('popup__submit_not-active')) {
+  if (!evt.target.classList.contains('popup__button_disabled')) {
+    addNewCard();
     closePopup(popupAddCard);
   }
 }

@@ -1,10 +1,10 @@
-.popup__submit_not-active {
+.popup__button_disabled {
   border: 1px solid rgba(0, 0, 0, 0.2);
   background: white;
   color: rgba(0, 0, 0, 0.2);
   cursor: default;
 }
 
-.popup__submit:hover {
+.popup__button_disabled:hover {
   opacity: 1;
 }
