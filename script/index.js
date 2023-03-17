@@ -1,3 +1,7 @@
+import * as data from'./data.js';
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
 const profile = document.querySelector('.profile');
 const name = profile.querySelector('.profile__name');
 const job = profile.querySelector('.profile__job');
@@ -59,43 +63,29 @@ const submitAddForm = (evt) => {
   }
 }
 
-const createCard = (name, link) => {
-  const card = cardTemplate.querySelector('.element').cloneNode(true);
-  const cardData = card.querySelector('.element__image');
-  card.querySelector('.element__name').textContent = name;
-  cardData.alt = name;
-  cardData.src = link;
-  card.querySelector('.element__like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('element__like_active');
-  });
-  card.querySelector('.element__trash').addEventListener('click', function (evt) {
-    evt.target.parentElement.remove();
-  })
-  cardData.addEventListener('click', function () {
-    openImagePopup(name, link);
-  })
-  return card;
-}
-
 const addCard = (cards, card) => {
   cards.prepend(card);
 }
 
-initialCards.forEach((title) => {
-  addCard(containerWithCards, createCard(title.name, title.link));
+data.initialCards.forEach((title) => {
+  const card = new Card(title.link, title.name, '.element');
+  const cardElement = card.generateCard();
+  addCard(containerWithCards, cardElement);
 })
 
 const addNewCard = () => {
   if (placeInput.value === '' || srcInput.value === '') {
     closePopup(popupAddCard);
   } else {
-    addCard(containerWithCards, createCard(placeInput.value, srcInput.value));
+    const card = new Card(srcInput.value, placeInput.value, '.element');
+    const cardElement = card.generateCard();
+    addCard(containerWithCards, cardElement);
     addNewCardForm.reset()
     closePopup(popupAddCard);
   }
 }
 
-const openImagePopup = (name, source) => {
+export const openImagePopup = (name, source) => {
   popupImageSrc.src = source;
   popupImageSrc.alt = name;
   popupImageText.textContent = name;
@@ -134,4 +124,7 @@ popups.forEach((overlay) => {
   })
 })
 
-
+const formList = Array.from(document.querySelectorAll(data.settings.formSelector));
+formList.forEach((formElement) => {
+  new FormValidator(data.settings, formElement).enableValidation();
+});
