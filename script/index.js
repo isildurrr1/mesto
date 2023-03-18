@@ -26,12 +26,13 @@ const popupImageText = popupImage.querySelector('.popup__text');
 const btnImageClose = popupImage.querySelector('.popup__close');
 const popups = document.querySelectorAll('.popup');
 
+const formAddCard = new FormValidator(data.settings, document.querySelector('#add-card'));
+formAddCard.enableValidation();
+const formChangeData = new FormValidator(data.settings, document.querySelector('#change-data'));
+formChangeData.enableValidation();
+
 const escListener = (evt) => {
-  if(evt.key === 'Escape') {
-    popups.forEach((overlay) => {
-      closePopup(overlay)
-  })
-  }
+  if(evt.key === 'Escape') closePopup(document.querySelector('.popup_opened'));
 }
 
 const openPopup = (popupName) => {
@@ -46,43 +47,35 @@ const closePopup = (popupName) => {
 
 const submitEditProfileForm = (evt) => {
   evt.preventDefault();
-  if (!evt.target.querySelector('.popup__button').classList.contains('popup__button_disabled')) {
-    name.textContent = nameInput.value;
-    job.textContent = jobInput.value;
-    closePopup(popupEditProfile);
-  }
+  name.textContent = nameInput.value;
+  job.textContent = jobInput.value;
+  closePopup(popupEditProfile);
 }
 
 const submitAddForm = (evt) => {
   evt.preventDefault();
-  if (!evt.target.classList.contains('popup__button_disabled')) {
-    addNewCard();
-    closePopup(popupAddCard);
-    evt.target.classList.add('popup__button_disabled');
-    evt.target.setAttribute('disable', true);
-  }
+  addNewCard();
+  closePopup(popupAddCard);
+  formAddCard.toggleButtonState();
 }
 
 const addCard = (cards, card) => {
   cards.prepend(card);
 }
 
+const createCardClass = (image, text, templateSelector) => {
+  const card = new Card(image, text, templateSelector);
+  return card.generateCard();
+}
+
 data.initialCards.forEach((title) => {
-  const card = new Card(title.link, title.name, '.element');
-  const cardElement = card.generateCard();
-  addCard(containerWithCards, cardElement);
+  addCard(containerWithCards, createCardClass(title.link, title.name, '.element'));
 })
 
 const addNewCard = () => {
-  if (placeInput.value === '' || srcInput.value === '') {
-    closePopup(popupAddCard);
-  } else {
-    const card = new Card(srcInput.value, placeInput.value, '.element');
-    const cardElement = card.generateCard();
-    addCard(containerWithCards, cardElement);
-    addNewCardForm.reset()
-    closePopup(popupAddCard);
-  }
+  addCard(containerWithCards, createCardClass(srcInput.value, placeInput.value, '.element'));
+  addNewCardForm.reset()
+  closePopup(popupAddCard);
 }
 
 export const openImagePopup = (name, source) => {
@@ -124,7 +117,4 @@ popups.forEach((overlay) => {
   })
 })
 
-const formList = Array.from(document.querySelectorAll(data.settings.formSelector));
-formList.forEach((formElement) => {
-  new FormValidator(data.settings, formElement).enableValidation();
-});
+

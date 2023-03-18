@@ -31,7 +31,7 @@
     <div class="popup popup_edit-profile">
       <div class="popup__container">
         <h3 class="popup__title">Редактировать профиль</h3>
-        <form action="#" class="popup__form" name="data_change" novalidate>
+        <form id="change-data" action="#" class="popup__form" name="data_change" novalidate>
           <input type="text" class="popup__input popup__input_form_name" id="name-input" name="name" placeholder="Имя" minlength="2" maxlength="40" required>
           <span class='popup__error name-input-error'></span>
           <input type="text" class="popup__input popup__input_form_job" id="job-input" name="job" placeholder="Вид деятельности" minlength="2" maxlength="200" required>
@@ -44,7 +44,7 @@
     <div class="popup popup_add-card">
       <div class="popup__container">
         <h3 class="popup__title">Новое место</h3>
-        <form action="#" class="popup__form" name="data_change">
+        <form id="add-card" action="#" class="popup__form" name="data_change">
           <input type="text" class="popup__input popup__input_form_place" id="place-input" name="place" placeholder="Название" minlength="2" maxlength="30" required>
           <span class='popup__error place-input-error'></span>
           <input type="url" class="popup__input popup__input_form_src" id="src-input" name="src" placeholder="Ссылка на картинку" required>
@@ -57,14 +57,16 @@
     <div class="popup popup_image">
       <div class="popup__figure">
         <img src="#" alt="#" class="popup__photo">
-        <h2 class="popup__text"></h2>
+        <h2 class="popup__text">#</h2>
         <button class="popup__close" type="button"></button>
       </div>
     </div>
     <template id="card">
       <article class="element">
         <button class="element__trash" type="button"></button>
-        <img src="#" alt="#" class="element__image">
+        <div class="element__img-container">
+          <img src="#" alt="#" class="element__image">
+        </div>
         <div class="element__sign">
           <h2 class="element__name"></h2>
           <button class="element__like" type="button"></button>

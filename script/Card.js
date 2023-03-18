@@ -32,7 +32,7 @@ class Card {
   }
 
   _handleDeleteClick() {
-    this._element.querySelector('.element__trash').parentElement.remove();
+    this._element.remove();
   }
 
   _handleOpenImage() {
