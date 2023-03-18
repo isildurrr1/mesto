@@ -17,7 +17,7 @@ const cardTemplate = document.querySelector('#card').content;
 const containerWithCards = document.querySelector('.elements');
 const placeInput = popupAddCard.querySelector('.popup__input_form_place');
 const srcInput = popupAddCard.querySelector('.popup__input_form_src');
-const addNewCardForm = popupAddCard.querySelector('.popup__form');
+const formPopupCard = popupAddCard.querySelector('.popup__form');
 const btnCardAddSubmit = popupAddCard.querySelector('.popup__button');
 const btnCardAddClose = popupAddCard.querySelector('.popup__close');
 const popupImage = document.querySelector('.popup_image');
@@ -74,7 +74,7 @@ data.initialCards.forEach((title) => {
 
 const addNewCard = () => {
   addCard(containerWithCards, createCardClass(srcInput.value, placeInput.value, '.element'));
-  addNewCardForm.reset()
+  formPopupCard.reset()
   closePopup(popupAddCard);
 }
 
