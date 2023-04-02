@@ -1,16 +1,15 @@
-import { openImagePopup } from "./index.js";
-
-class Card {
-  constructor(image, text, templateSelector) {
+export default class Card {
+  constructor(image, text, templateSelector, handleCardClick) {
     this._image = image;
     this._text = text;
     this._templateSelector = templateSelector;
+    this._handleCardClick = handleCardClick;
   }
 
   _getTemplate() {
     const cardElement = document
       .querySelector('#card')
-      .content.querySelector('.element')
+      .content.querySelector(this._templateSelector)
       .cloneNode(true);
     return cardElement;
   }
@@ -36,7 +35,7 @@ class Card {
   }
 
   _handleOpenImage() {
-    openImagePopup(this._text, this._image);
+    this._handleCardClick(this._image, this._text);
   }
 
   generateCard() {
@@ -48,6 +47,3 @@ class Card {
     return this._element;
   }
 }
-
-export default Card;
-
