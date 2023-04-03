@@ -2,32 +2,34 @@ export default class Card {
   constructor(image, text, templateSelector, handleCardClick) {
     this._image = image;
     this._text = text;
-    this._templateSelector = templateSelector;
+    this._templateSelector = document.querySelector(templateSelector);
     this._handleCardClick = handleCardClick;
+    this._element = this._getTemplate();
+    this._like = this._element.querySelector('.element__like');
+    this._trash = this._element.querySelector('.element__trash');
+    this._imageElement = this._element.querySelector('.element__image')
+    this._nameElement = this._element.querySelector('.element__name');
   }
 
   _getTemplate() {
-    const cardElement = document
-      .querySelector('#card')
-      .content.querySelector(this._templateSelector)
-      .cloneNode(true);
+    const cardElement = this._templateSelector.content.querySelector('.element').cloneNode(true);
     return cardElement;
   }
 
   _setEventListeners() {
-    this._element.querySelector('.element__like').addEventListener('click', () => {
+    this._like.addEventListener('click', () => {
       this._handleLikeClick();
     });
-    this._element.querySelector('.element__trash').addEventListener('click', () => {
+    this._trash.addEventListener('click', () => {
       this._handleDeleteClick();
     });
-    this._element.querySelector('.element__image').addEventListener('click', () => {
+    this._imageElement.addEventListener('click', () => {
       this._handleOpenImage();
     });
   }
 
   _handleLikeClick() {
-    this._element.querySelector('.element__like').classList.toggle('element__like_active');
+    this._like.classList.toggle('element__like_active');
   }
 
   _handleDeleteClick() {
@@ -39,11 +41,10 @@ export default class Card {
   }
 
   generateCard() {
-    this._element = this._getTemplate();
     this._setEventListeners();
-    this._element.querySelector('.element__image').src = this._image;
-    this._element.querySelector('.element__image').alt = this._text;
-    this._element.querySelector('.element__name').textContent = this._text;
+    this._imageElement.src = this._image;
+    this._imageElement.alt = this._text;
+    this._nameElement.textContent = this._text;
     return this._element;
   }
 }
