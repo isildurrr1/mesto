@@ -49,7 +49,7 @@ const createCardClass = (item, templateSelector) => {
   const card = new Card(item, templateSelector, handleCardClick, deleteCardClick, likeCardClick);
   return card.generateCard();
 }
-
+let lol = [];
 // Функция отрисовки карточек
 const renderServerCards = () => {
   api.getInitialCards()
@@ -144,9 +144,10 @@ const newCardPopup = new PopupWithForm('.popup_add-card', (evt) => {
   const cardValues = newCardPopup.getInputValues();
   loading(true, newCardPopup.submitBtn);
   api.addNewCard(cardValues)
-  setTimeout(() => {
-    location.reload()
-  }, 400)
+  .then((result) => {
+    const newCard = createCardClass(result, '#card')
+    document.querySelector('.elements').prepend(newCard)
+  })
   loading(true, newCardPopup.submitBtn);
   newCardPopup.close();
 });
