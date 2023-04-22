@@ -5,6 +5,11 @@ export default class PopupWithForm extends Popup{
     this._submit = submit;
     this._form = this._popup.querySelector('.popup__form');
     this._formInputs = this._form.querySelectorAll('.popup__input');
+    this.submitBtn = this._form.querySelector('.popup__button')
+  }
+  open(card) {
+    super.open();
+    this._card = card;
   }
   getInputValues() {
     this._inputsValues = {};
@@ -24,6 +29,11 @@ export default class PopupWithForm extends Popup{
   }
   close() {
     super.close();
-    this._form.reset();
+    if (this._inputsValues !== undefined) {
+      this._form.reset();
+    }
+  }
+  getCard() {
+    return this._card;
   }
 }

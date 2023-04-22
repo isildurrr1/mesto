@@ -2,9 +2,13 @@
   aspect-ratio: 1 / 1;
   height: 120px;
   border-radius: 50%;
+  object-fit: cover;
+  z-index: 1;
+  grid-column: 1 / -1;
+  grid-row: 1 / -1;
 }
 
-@media screen and (max-width: 776px) {
+/* @media screen and (max-width: 776px) {
   .profile__avatar {
     margin: auto;
   }
@@ -15,4 +19,5 @@
   .profile__avatar {
     margin-bottom: 14px;
   }
-}
+} */
+

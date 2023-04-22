@@ -1,33 +1,10 @@
 const profile = document.querySelector('.profile');
 export const btnProfileEdit = profile.querySelector('.profile__edit');
 export const btnCardAdd = profile.querySelector('.profile__add');
-
-export const initialCards = [
-  {
-    name: 'Архыз',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/arkhyz.jpg'
-  },
-  {
-    name: 'Челябинская область',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/chelyabinsk-oblast.jpg'
-  },
-  {
-    name: 'Иваново',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/ivanovo.jpg'
-  },
-  {
-    name: 'Камчатка',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kamchatka.jpg'
-  },
-  {
-    name: 'Холмогорский район',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/kholmogorsky-rayon.jpg'
-  },
-  {
-    name: 'Байкал',
-    link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
-  }
-];
+export const profileAvatar = profile.querySelector('.profile__avatar');
+export const profileName = profile.querySelector('.profile__name');
+export const profileAbout = profile.querySelector('.profile__job');
+export const profileAvatarEdit = profile.querySelector('.profile__avatar-overlay')
 
 export const settings = {
   formSelector: '.popup__form',

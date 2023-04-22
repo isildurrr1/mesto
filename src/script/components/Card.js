@@ -1,14 +1,21 @@
 export default class Card {
-  constructor(image, text, templateSelector, handleCardClick) {
-    this._image = image;
-    this._text = text;
+  constructor(cardJson, templateSelector, handleCardClick, deleteCardClick, likeCardClick) {
+    this._json = cardJson;
+    this._image = cardJson.link;
+    this._text = cardJson.name;
+    this._likesCount = cardJson.likes.length;
     this._templateSelector = document.querySelector(templateSelector);
     this._handleCardClick = handleCardClick;
+    this._deleteCardClick = deleteCardClick;
+    this._likeCardClick = likeCardClick;
+    this._ownerId = cardJson.owner._id;
+    this._cardId = cardJson._id;
     this._element = this._getTemplate();
     this._like = this._element.querySelector('.element__like');
     this._trash = this._element.querySelector('.element__trash');
     this._imageElement = this._element.querySelector('.element__image')
     this._nameElement = this._element.querySelector('.element__name');
+    this._likeCountElement = this._element.querySelector('.element__like-count');
   }
 
   _getTemplate() {
@@ -19,9 +26,21 @@ export default class Card {
   _setEventListeners() {
     this._like.addEventListener('click', () => {
       this._handleLikeClick();
+      if (this._like.classList.contains('element__like_active')) {
+        this._likeCardClick(this._cardId, 'like')
+        .then((e) => {
+          this._likeCountElement.textContent = e.likes.length
+        })
+        ;
+      } else {
+        this._likeCardClick(this._cardId, 'del')
+        .then((e) => {
+          this._likeCountElement.textContent = e.likes.length
+        });
+      }
     });
     this._trash.addEventListener('click', () => {
-      this._handleDeleteClick();
+      this._deleteCardClick(this)
     });
     this._imageElement.addEventListener('click', () => {
       this._handleOpenImage();
@@ -32,7 +51,7 @@ export default class Card {
     this._like.classList.toggle('element__like_active');
   }
 
-  _handleDeleteClick() {
+  handleDeleteClick() {
     this._element.remove();
   }
 
@@ -41,10 +60,21 @@ export default class Card {
   }
 
   generateCard() {
-    this._setEventListeners();
     this._imageElement.src = this._image;
     this._imageElement.alt = this._text;
     this._nameElement.textContent = this._text;
+    this._likeCountElement.textContent = this._likesCount;
+    if (this._ownerId !== 'a723554acbc54d7f918250c3') {
+      this._trash.remove();
+    }
+    this._json.likes.forEach(e => {
+      if (e._id === 'a723554acbc54d7f918250c3') {
+        this._like.classList.add('element__like_active');
+      } else {
+        this._like.classList.remove('element__like_active');
+      }
+    });
+    this._setEventListeners();
     return this._element;
   }
 }
