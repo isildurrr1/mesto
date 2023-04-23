@@ -119,8 +119,13 @@ const imageDeletePopup = new PopupDeleteCard('.popup_delete-image', (evt) => {
   evt.preventDefault();
   const delCard = imageDeletePopup.getCard();
   delCard.handleDeleteClick();
-  api.deleteCard(delCard._cardId);
-  imageDeletePopup.close();
+  api.deleteCard(delCard._cardId)
+  .then(() => {
+    imageDeletePopup.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  });
 })
 imageDeletePopup.setEventListeners()
 
@@ -136,9 +141,16 @@ const editPopup = new PopupWithForm('.popup_edit-profile', (data) => {
     const editValues = data;
     userInfo.setUserInfo(editValues.name, editValues.job);
     loading(true, editPopup.submitBtn);
-    api.editProfileInfo(editValues);
-    loading(false, editPopup.submitBtn);
-    editPopup.close();
+    api.editProfileInfo(editValues)
+    .then(() => {
+      editPopup.close();
+    })
+    .catch((err) => {
+      console.log(err);
+    })
+    .finally {
+      loading(false, editPopup.submitBtn);
+    }
 })
 editPopup.setEventListeners();
 
@@ -147,9 +159,17 @@ const changeAvatarPopup = new PopupWithForm('.popup_change-avatar', (data) => {
   const image = data.src;
   profileAvatar.src = image;
   loading(true, changeAvatarPopup.submitBtn);
-  api.changeAvatar(image);
-  loading(false, changeAvatarPopup.submitBtn);
-  changeAvatarPopup.close();
+  api.changeAvatar(image)
+  .then(() => {
+    loading(false, changeAvatarPopup.submitBtn);
+    changeAvatarPopup.close();
+  })
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally {
+    loading(false, editPopup.submitBtn);
+  }
 })
 changeAvatarPopup.setEventListeners();
 
@@ -160,10 +180,16 @@ const newCardPopup = new PopupWithForm('.popup_add-card', (data) => {
   api.addNewCard(cardValues)
   .then((result) => {
     const newCard = createCardClass(result, '#card')
-    cardList.addItem(newCard)
+    cardList.addItem(newCard);
+    loading(true, newCardPopup.submitBtn);
+    newCardPopup.close();
   })
-  loading(true, newCardPopup.submitBtn);
-  newCardPopup.close();
+  .catch((err) => {
+    console.log(err);
+  })
+  .finally {
+    loading(false, editPopup.submitBtn);
+  }
 });
 newCardPopup.setEventListeners();
 
