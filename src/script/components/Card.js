@@ -1,8 +1,9 @@
 export default class Card {
-  constructor(cardJson, templateSelector, handleCardClick, deleteCardClick, likeCardClick) {
+  constructor(cardJson, templateSelector, userId, handleCardClick, deleteCardClick, likeCardClick) {
     this._json = cardJson;
     this._image = cardJson.link;
     this._text = cardJson.name;
+    this._userId = userId;
     this._likesCount = cardJson.likes.length;
     this._templateSelector = document.querySelector(templateSelector);
     this._handleCardClick = handleCardClick;
@@ -53,11 +54,11 @@ export default class Card {
     this._imageElement.alt = this._text;
     this._nameElement.textContent = this._text;
     this._likeCountElement.textContent = this._likesCount;
-    if (this._ownerId !== 'a723554acbc54d7f918250c3') {
+    if (this._ownerId !== this._userId) {
       this._trash.remove();
     }
     this._json.likes.forEach(e => {
-      if (e._id === 'a723554acbc54d7f918250c3') {
+      if (e._id === this._userId) {
         this._like.classList.add('element__like_active');
       } else {
         this._like.classList.remove('element__like_active');

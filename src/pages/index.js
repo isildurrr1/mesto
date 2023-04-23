@@ -17,6 +17,8 @@ import PopupDeleteCard from '../script/components/PopupDeleteCard';
 import UserInfo from '../script/components/UserInfo.js';
 import Api from '../script/components/Api';
 
+const initialCards = [];
+let userId = '';
 // Функция для усовершенствования UX
 const loading = (bul, button) => {
   if (bul) {
@@ -59,11 +61,10 @@ const likeCardClick = (cardId, likeElement, card) => {
 
 // Функция создания объекта класса карточки
 const createCardClass = (item, templateSelector) => {
-  const card = new Card(item, templateSelector, handleCardClick, deleteCardClick, likeCardClick);
+  const card = new Card(item, templateSelector, userId, handleCardClick, deleteCardClick, likeCardClick);
   return card.generateCard();
 }
 
-let initialCards = [];
 const cardList = new Section({ items: initialCards, renderer: (item) => {
   const cardElement = createCardClass(item, '#card');
   cardList.addItem(cardElement);
@@ -74,8 +75,8 @@ const cardList = new Section({ items: initialCards, renderer: (item) => {
 const renderServerCards = () => {
   api.getInitialCards()
   .then((result) => {
-    result.forEach((e) => {
-      initialCards.unshift(e);
+    result.slice().reverse().forEach((e) => {
+      initialCards.push(e);
     })
     cardList.renderItems();
   })
@@ -84,6 +85,8 @@ const renderServerCards = () => {
   });
 }
 
+// Объект класса для изменения даннах пользователя на странице
+const userInfo = new UserInfo({nameSelector: '.profile__name', jobSelector: '.profile__job', avatarSelector: '.profile__avatar'});
 
 // Объект класса АПИ
 const api = new Api({
@@ -97,9 +100,8 @@ const api = new Api({
 // Получение данных пользователя с сервера
 api.getProfileInfo()
   .then((result) => {
-    profileName.textContent = result.name;
-    profileAbout.textContent = result.about;
-    profileAvatar.src = result.avatar;
+    userId = result._id;
+    userInfo.setUserInfo(result.name, result.about, result.avatar)
     renderServerCards()
   })
   .catch((err) => {
@@ -118,9 +120,9 @@ formChangeAvatar.enableValidation();
 const imageDeletePopup = new PopupDeleteCard('.popup_delete-image', (evt) => {
   evt.preventDefault();
   const delCard = imageDeletePopup.getCard();
-  delCard.handleDeleteClick();
   api.deleteCard(delCard._cardId)
   .then(() => {
+    delCard.handleDeleteClick();
     imageDeletePopup.close();
   })
   .catch((err) => {
@@ -133,16 +135,13 @@ imageDeletePopup.setEventListeners()
 const imagePopup = new PopupWithImage('.popup_image');
 imagePopup.setEventListeners();
 
-// Объект класса для изменения даннах пользователя на странице
-const userInfo = new UserInfo({nameSelector: '.profile__name', jobSelector: '.profile__job'});
-
 // Попап иземения данных
 const editPopup = new PopupWithForm('.popup_edit-profile', (data) => {
     const editValues = data;
-    userInfo.setUserInfo(editValues.name, editValues.job);
     loading(true, editPopup.submitBtn);
     api.editProfileInfo(editValues)
     .then(() => {
+      userInfo.setUserInfo(editValues.name, editValues.job, profileAvatar.src);
       editPopup.close();
     })
     .catch((err) => {
@@ -157,18 +156,17 @@ editPopup.setEventListeners();
 // Попап изменения аватара
 const changeAvatarPopup = new PopupWithForm('.popup_change-avatar', (data) => {
   const image = data.src;
-  profileAvatar.src = image;
   loading(true, changeAvatarPopup.submitBtn);
   api.changeAvatar(image)
   .then(() => {
-    loading(false, changeAvatarPopup.submitBtn);
+    profileAvatar.src = image;
     changeAvatarPopup.close();
   })
   .catch((err) => {
     console.log(err);
   })
   .finally(() => {
-    loading(false, editPopup.submitBtn);
+    loading(false, changeAvatarPopup.submitBtn);
   })
 })
 changeAvatarPopup.setEventListeners();
@@ -205,6 +203,7 @@ btnCardAdd.addEventListener('click', () => {
 });
 
 profileAvatarEdit.addEventListener('click', () => {
+  formChangeAvatar.toggleButtonState();
   changeAvatarPopup.open();
 })
 
