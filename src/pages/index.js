@@ -148,9 +148,9 @@ const editPopup = new PopupWithForm('.popup_edit-profile', (data) => {
     .catch((err) => {
       console.log(err);
     })
-    .finally {
+    .finally(() => {
       loading(false, editPopup.submitBtn);
-    }
+    })
 })
 editPopup.setEventListeners();
 
@@ -167,9 +167,9 @@ const changeAvatarPopup = new PopupWithForm('.popup_change-avatar', (data) => {
   .catch((err) => {
     console.log(err);
   })
-  .finally {
+  .finally(() => {
     loading(false, editPopup.submitBtn);
-  }
+  })
 })
 changeAvatarPopup.setEventListeners();
 
@@ -187,9 +187,9 @@ const newCardPopup = new PopupWithForm('.popup_add-card', (data) => {
   .catch((err) => {
     console.log(err);
   })
-  .finally {
+  .finally(() => {
     loading(false, editPopup.submitBtn);
-  }
+  })
 });
 newCardPopup.setEventListeners();
 
