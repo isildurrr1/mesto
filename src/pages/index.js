@@ -4,8 +4,6 @@ import {
   btnCardAdd,
   settings,
   profileAvatar,
-  profileName,
-  profileAbout,
   profileAvatarEdit
 } from '../script/utils/data.js';
 import Card from '../script/components/Card.js';
